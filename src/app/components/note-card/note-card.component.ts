@@ -9,7 +9,25 @@ import { Note } from '../../models/Note';
 export class NoteCardComponent implements OnInit {
 
   @Input() note: Note;
+  @Input() icon: string;
 
   constructor() { }
-  ngOnInit() { }
+
+  ngOnInit() {
+    this.icon = 'favorite';
+
+    if (this.note.isFavorite === true) {
+      this.icon = 'favorite_border';
+    }
+  }
+
+  public addToFav(event: Event, note: Note) {
+    note.isFavorite = !note.isFavorite;
+
+    if (this.note.isFavorite === true) {
+      this.icon = 'favorite_border';
+    } else {
+      this.icon = 'favorite';
+    }
+  }
 }

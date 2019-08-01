@@ -55,7 +55,7 @@ import {MatTreeModule} from '@angular/material/tree';
     MatButtonToggleModule,
     MatCardModule,
     MatCheckboxModule,
-    // MatChipsModule,
+    MatChipsModule,
     // MatStepperModule,
     // MatDatepickerModule,
     // MatDialogModule,
