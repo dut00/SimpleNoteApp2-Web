@@ -1,5 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject} from '@angular/core';
 import { Note } from '../../models/Note';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+
+export interface DialogData {
+  id: string;
+  title: string;
+}
+
 
 @Component({
   selector: 'app-note-card',
@@ -11,7 +19,10 @@ export class NoteCardComponent implements OnInit {
   @Input() note: Note;
   @Input() icon: string;
 
-  constructor() { }
+  id: string;
+  title: string;
+
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
     this.icon = 'favorite';
@@ -21,7 +32,7 @@ export class NoteCardComponent implements OnInit {
     }
   }
 
-  public addToFav(event: Event, note: Note) {
+  public addToFavorites(note: Note): void {
     note.isFavorite = !note.isFavorite;
 
     if (this.note.isFavorite === true) {
@@ -30,4 +41,19 @@ export class NoteCardComponent implements OnInit {
       this.icon = 'favorite';
     }
   }
+
+  public openDeleteDialog(): void {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      height: '180px',
+      width: '250px',
+      // data: {id: this.id, animal: this.title}
+      data: {note: this.note}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed. Result:' + result);
+      // this.note.id = result;
+    });
+  }
 }
+

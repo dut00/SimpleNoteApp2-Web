@@ -4,7 +4,7 @@ export class Note {
   text: string;
   isFavorite: boolean;
   linkToPic: string;
-  // tags: string[];
+  tags: string[];
   // createdDate: Date;
   // modifiedDate: Date;
   // backgroundColor: enum;

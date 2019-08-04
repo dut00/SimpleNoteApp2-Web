@@ -1,23 +1,23 @@
-<mat-card class="example-card" style="background-color: white;">
-  <img mat-card-image src="{{ note.linkToPic }}" alt="Photo">
-  <mat-card-title>{{ note.title }}</mat-card-title>
-  <mat-card-content>
-    <p>
-      {{ note.text }}
-    </p>
-  </mat-card-content>
+<mat-card class="example-card" style="background-color: #ddd;">
+
+  <img *ngIf="note.linkToPic" mat-card-image src="{{ note.linkToPic }}" alt="Photo">
+
+  <mat-card-title *ngIf="note.title">
+    {{ note.title }}
+  </mat-card-title>
 
   <mat-card-content>
+    {{ note.text }}
+  </mat-card-content>
+
+  <mat-card-content *ngIf="note.tags">
       <mat-chip-list>
-          <mat-chip>#Papadum</mat-chip>
-          <mat-chip selected>#Naan</mat-chip>
-          <mat-chip color="primary" selected>#Dal</mat-chip>
-          <mat-chip color="accent" selected>#Ole</mat-chip>
+          <mat-chip *ngFor="let tag of note.tags" color="primary" selected>#{{ tag }}</mat-chip>
       </mat-chip-list>
   </mat-card-content>
 
   <mat-card-actions align="end">
-    <button mat-icon-button (click)="addToFav($event, note)" title="Add to favorites">
+    <button mat-icon-button (click)="addToFavorites(note)" title="Add to favorites">
       <mat-icon>{{ icon }}</mat-icon>
     </button>
 
@@ -37,7 +37,7 @@
             <mat-icon>print</mat-icon>
             <span>Print</span>
           </button>
-          <button mat-menu-item title="Delete note">
+          <button mat-menu-item title="Delete note" (click)="openDeleteDialog()">
             <mat-icon color="warn">delete</mat-icon>
             <span style="color: red;">Delete</span>
           </button>
